@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, TextInput, Alert, ActivityIndicator } from 'react-native';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
-import { Video } from 'expo-av';
+import { VideoView, useVideoPlayer } from 'expo-video';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/contexts/AuthContext';
@@ -20,6 +20,11 @@ export default function RecordScreen() {
   const [uploading, setUploading] = useState(false);
   const [cameraType, setCameraType] = useState(CameraType.back);
   const [flashMode, setFlashMode] = useState(FlashMode.off);
+  
+  const player = useVideoPlayer(recordedVideo || '', (player) => {
+    player.loop = true;
+    player.play();
+  });
 
   useEffect(() => {
     (async () => {
@@ -144,12 +149,11 @@ export default function RecordScreen() {
   if (recordedVideo) {
     return (
       <View className="flex-1 bg-background">
-        <Video
-          source={{ uri: recordedVideo }}
+        <VideoView
+          player={player}
           style={{ flex: 1 }}
-          resizeMode="cover"
-          shouldPlay
-          isLooping
+          contentFit="cover"
+          nativeControls={false}
         />
         
         {/* Overlay */}

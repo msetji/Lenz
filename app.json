@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
+    "scheme": "lenz",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -41,7 +42,7 @@
       "expo-router",
       "expo-location",
       "expo-camera",
-      "expo-av"
+      "expo-video"
     ]
   }
 } 

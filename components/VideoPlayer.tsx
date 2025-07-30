@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
-import { Video, ResizeMode, AVPlaybackStatus } from 'expo-av';
+import { VideoView, useVideoPlayer } from 'expo-video';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
@@ -16,8 +16,10 @@ const { width, height } = Dimensions.get('window');
 
 export default function VideoPlayer({ video }: VideoPlayerProps) {
   const { user } = useAuth();
-  const videoRef = useRef<Video>(null);
-  const [status, setStatus] = useState<AVPlaybackStatus | null>(null);
+  const player = useVideoPlayer(video.video_url, (player) => {
+    player.loop = true;
+    player.play();
+  });
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
@@ -102,15 +104,11 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
 
   return (
     <View className="flex-1 bg-background">
-      <Video
-        ref={videoRef}
-        source={{ uri: video.video_url }}
+      <VideoView
+        player={player}
         style={{ width, height }}
-        resizeMode={ResizeMode.COVER}
-        shouldPlay
-        isLooping
-        isMuted={false}
-        onPlaybackStatusUpdate={setStatus}
+        contentFit="cover"
+        nativeControls={false}
       />
       
       {/* Overlay */}
@@ -160,10 +158,7 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
           <View className="flex-row items-center space-x-2">
             <View className="w-1 h-8 bg-primary rounded-full" />
             <Text className="text-text-secondary text-sm">
-              {status?.positionMillis ? 
-                `${Math.floor(status.positionMillis / 1000)}s` : 
-                '0s'
-              }
+              {Math.floor(player.currentTime || 0)}s
             </Text>
           </View>
         </View>
