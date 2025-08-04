@@ -53,7 +53,7 @@ export default function VideoDetailScreen() {
     } catch (error) {
       console.error('Error fetching video:', error);
       Alert.alert('Error', 'Failed to load video');
-      router.back();
+      router.replace('/(tabs)');
     } finally {
       setLoading(false);
     }
