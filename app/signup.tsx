@@ -95,7 +95,7 @@ export default function SignUpScreen() {
             <Ionicons name="videocam" size={40} color="#FFFFFF" />
           </View>
           <Text className="text-white text-3xl font-bold mb-2">Join Lenz</Text>
-          <Text className="text-gray-400 text-base text-center">
+          <Text className="text-gray-300 text-base text-center">
             Create your account to start sharing videos
           </Text>
         </View>
@@ -106,10 +106,10 @@ export default function SignUpScreen() {
             <Text className="text-white text-sm font-medium mb-2">Email Address</Text>
             <TextInput
               placeholder="Enter your email"
-              placeholderTextColor="#6B7280"
+              placeholderTextColor="#9CA3AF"
               value={email}
               onChangeText={setEmail}
-              className="bg-gray-800 rounded-xl px-4 py-4 text-white text-base border border-gray-700 focus:border-blue-500"
+              className="bg-gray-800 rounded-xl px-4 py-4 text-white text-base border border-gray-600"
               keyboardType="email-address"
               autoCapitalize="none"
               autoCorrect={false}
@@ -120,14 +120,14 @@ export default function SignUpScreen() {
             <Text className="text-white text-sm font-medium mb-2">Username</Text>
             <TextInput
               placeholder="Choose a username (3-20 characters)"
-              placeholderTextColor="#6B7280"
+              placeholderTextColor="#9CA3AF"
               value={username}
               onChangeText={setUsername}
-              className="bg-gray-800 rounded-xl px-4 py-4 text-white text-base border border-gray-700 focus:border-blue-500"
+              className="bg-gray-800 rounded-xl px-4 py-4 text-white text-base border border-gray-600"
               autoCapitalize="none"
               autoCorrect={false}
             />
-            <Text className="text-gray-500 text-xs mt-1">
+            <Text className="text-gray-400 text-xs mt-1">
               Letters, numbers, and underscores only
             </Text>
           </View>
@@ -137,10 +137,10 @@ export default function SignUpScreen() {
             <View className="relative">
               <TextInput
                 placeholder="Create a password (min 6 characters)"
-                placeholderTextColor="#6B7280"
+                placeholderTextColor="#9CA3AF"
                 value={password}
                 onChangeText={setPassword}
-                className="bg-gray-800 rounded-xl px-4 py-4 pr-12 text-white text-base border border-gray-700 focus:border-blue-500"
+                className="bg-gray-800 rounded-xl px-4 py-4 pr-12 text-white text-base border border-gray-600"
                 secureTextEntry={!showPassword}
               />
               <TouchableOpacity
@@ -150,7 +150,7 @@ export default function SignUpScreen() {
                 <Ionicons 
                   name={showPassword ? 'eye-off' : 'eye'} 
                   size={20} 
-                  color="#6B7280" 
+                  color="#9CA3AF" 
                 />
               </TouchableOpacity>
             </View>
@@ -161,10 +161,10 @@ export default function SignUpScreen() {
             <View className="relative">
               <TextInput
                 placeholder="Confirm your password"
-                placeholderTextColor="#6B7280"
+                placeholderTextColor="#9CA3AF"
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
-                className="bg-gray-800 rounded-xl px-4 py-4 pr-12 text-white text-base border border-gray-700 focus:border-blue-500"
+                className="bg-gray-800 rounded-xl px-4 py-4 pr-12 text-white text-base border border-gray-600"
                 secureTextEntry={!showConfirmPassword}
               />
               <TouchableOpacity
@@ -174,7 +174,7 @@ export default function SignUpScreen() {
                 <Ionicons 
                   name={showConfirmPassword ? 'eye-off' : 'eye'} 
                   size={20} 
-                  color="#6B7280" 
+                  color="#9CA3AF" 
                 />
               </TouchableOpacity>
             </View>
@@ -184,7 +184,7 @@ export default function SignUpScreen() {
             onPress={handleSignUp}
             disabled={loading}
             className={`rounded-xl py-4 items-center mt-6 ${
-              loading ? 'bg-gray-700' : 'bg-blue-500'
+              loading ? 'bg-gray-600' : 'bg-blue-500'
             }`}
           >
             {loading ? (
@@ -199,18 +199,18 @@ export default function SignUpScreen() {
 
         {/* Sign In Link */}
         <View className="flex-row justify-center mt-8">
-          <Text className="text-gray-400 text-base">
+          <Text className="text-gray-300 text-base">
             Already have an account? 
           </Text>
           <TouchableOpacity onPress={() => router.replace('/signin')}>
-            <Text className="text-blue-500 font-semibold text-base ml-1">
+            <Text className="text-blue-400 font-semibold text-base ml-1">
               Sign In
             </Text>
           </TouchableOpacity>
         </View>
 
         {/* Terms */}
-        <Text className="text-gray-500 text-xs text-center mt-8 leading-4">
+        <Text className="text-gray-400 text-xs text-center mt-8 leading-4">
           By creating an account, you agree to our Terms of Service and Privacy Policy
         </Text>
       </ScrollView>

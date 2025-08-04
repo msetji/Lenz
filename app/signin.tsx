@@ -41,7 +41,7 @@ export default function SignInScreen() {
   return (
     <KeyboardAvoidingView 
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
-      className="flex-1 bg-white"
+      className="flex-1 bg-black"
     >
       <ScrollView 
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingHorizontal: 24 }}
@@ -52,8 +52,8 @@ export default function SignInScreen() {
           <View className="w-24 h-24 bg-blue-500 rounded-full items-center justify-center mb-6">
             <Ionicons name="videocam" size={48} color="#FFFFFF" />
           </View>
-          <Text className="text-black text-4xl font-bold mb-3">Welcome Back</Text>
-          <Text className="text-gray-600 text-lg text-center">
+          <Text className="text-white text-4xl font-bold mb-3">Welcome Back</Text>
+          <Text className="text-gray-300 text-lg text-center">
             Sign in to continue sharing your world
           </Text>
         </View>
@@ -61,13 +61,13 @@ export default function SignInScreen() {
         {/* Sign In Form */}
         <View className="space-y-6">
           <View>
-            <Text className="text-black text-sm font-medium mb-2">Email</Text>
+            <Text className="text-white text-sm font-medium mb-2">Email</Text>
             <TextInput
               placeholder="Enter your email"
               placeholderTextColor="#9CA3AF"
               value={email}
               onChangeText={setEmail}
-              className="bg-gray-50 rounded-xl px-4 py-4 text-black text-base border border-gray-300"
+              className="bg-gray-800 rounded-xl px-4 py-4 text-white text-base border border-gray-600"
               keyboardType="email-address"
               autoCapitalize="none"
               autoCorrect={false}
@@ -75,14 +75,14 @@ export default function SignInScreen() {
           </View>
 
           <View>
-            <Text className="text-black text-sm font-medium mb-2">Password</Text>
+            <Text className="text-white text-sm font-medium mb-2">Password</Text>
             <View className="relative">
               <TextInput
                 placeholder="Enter your password"
                 placeholderTextColor="#9CA3AF"
                 value={password}
                 onChangeText={setPassword}
-                className="bg-gray-50 rounded-xl px-4 py-4 pr-12 text-black text-base border border-gray-300"
+                className="bg-gray-800 rounded-xl px-4 py-4 pr-12 text-white text-base border border-gray-600"
                 secureTextEntry={!showPassword}
               />
               <TouchableOpacity
@@ -92,7 +92,7 @@ export default function SignInScreen() {
                 <Ionicons 
                   name={showPassword ? 'eye-off' : 'eye'} 
                   size={20} 
-                  color="#6B7280" 
+                  color="#9CA3AF" 
                 />
               </TouchableOpacity>
             </View>
@@ -102,7 +102,7 @@ export default function SignInScreen() {
             onPress={handleSignIn}
             disabled={loading}
             className={`rounded-xl py-4 items-center ${
-              loading ? 'bg-gray-400' : 'bg-blue-500'
+              loading ? 'bg-gray-600' : 'bg-blue-500'
             }`}
           >
             {loading ? (
@@ -117,11 +117,11 @@ export default function SignInScreen() {
 
         {/* Sign Up Link */}
         <View className="flex-row justify-center mt-8">
-          <Text className="text-gray-600 text-base">
+          <Text className="text-gray-300 text-base">
             Don't have an account? 
           </Text>
           <TouchableOpacity onPress={() => router.push('/signup')}>
-            <Text className="text-blue-500 font-semibold text-base ml-1">
+            <Text className="text-blue-400 font-semibold text-base ml-1">
               Sign Up
             </Text>
           </TouchableOpacity>
@@ -130,22 +130,22 @@ export default function SignInScreen() {
         {/* Features */}
         <View className="mt-16 space-y-6">
           <View className="flex-row items-center">
-            <View className="w-8 h-8 bg-blue-100 rounded-full items-center justify-center mr-4">
+            <View className="w-8 h-8 bg-blue-900 rounded-full items-center justify-center mr-4">
               <Ionicons name="location" size={16} color="#3B82F6" />
             </View>
-            <Text className="text-gray-600 flex-1">Discover videos near you</Text>
+            <Text className="text-gray-300 flex-1">Discover videos near you</Text>
           </View>
           <View className="flex-row items-center">
-            <View className="w-8 h-8 bg-blue-100 rounded-full items-center justify-center mr-4">
+            <View className="w-8 h-8 bg-blue-900 rounded-full items-center justify-center mr-4">
               <Ionicons name="videocam" size={16} color="#3B82F6" />
             </View>
-            <Text className="text-gray-600 flex-1">Record and share short videos</Text>
+            <Text className="text-gray-300 flex-1">Record and share short videos</Text>
           </View>
           <View className="flex-row items-center">
-            <View className="w-8 h-8 bg-blue-100 rounded-full items-center justify-center mr-4">
+            <View className="w-8 h-8 bg-blue-900 rounded-full items-center justify-center mr-4">
               <Ionicons name="map" size={16} color="#3B82F6" />
             </View>
-            <Text className="text-gray-600 flex-1">Explore content on an interactive map</Text>
+            <Text className="text-gray-300 flex-1">Explore content on an interactive map</Text>
           </View>
         </View>
       </ScrollView>
