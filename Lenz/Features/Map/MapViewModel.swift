@@ -11,7 +11,7 @@ import MapKit
 
 
 class MapViewModel: ObservableObject {
-    @Published var cameraPosition: MapCameraPosition = .automatic
+    @Published var cameraPosition: MapKit.MapCameraPosition = .automatic
     @Published var cityAnnotations: [CityAnnotation] = []
 
     private let videoService = VideoService()

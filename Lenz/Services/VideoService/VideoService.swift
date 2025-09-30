@@ -22,7 +22,7 @@ class VideoService: ObservableObject {
         let videoId = UUID()
         let fileName = "\(videoId.uuidString).mp4"
 
-        let path = try await supabase.client.storage
+        let uploadResponse = try await supabase.client.storage
             .from("videos")
             .upload(
                 path: fileName,
@@ -32,27 +32,45 @@ class VideoService: ObservableObject {
 
         let publicURL = try supabase.client.storage
             .from("videos")
-            .getPublicURL(path: path)
+            .getPublicURL(path: uploadResponse.path)
 
-        let videoData: [String: Any] = [
-            "id": videoId.uuidString,
-            "user_id": userId.uuidString,
-            "video_url": publicURL.absoluteString,
-            "location": [
-                "city": location.city,
-                "region": location.region,
-                "country": location.country,
-                "latitude": location.latitude,
-                "longitude": location.longitude
-            ],
-            "likes_count": 0,
-            "comments_count": 0,
-            "created_at": ISO8601DateFormatter().string(from: Date())
-        ]
+        struct VideoInsert: Encodable {
+            let id: String
+            let user_id: String
+            let video_url: String
+            let location: LocationData
+            let likes_count: Int
+            let comments_count: Int
+            let created_at: String
+
+            struct LocationData: Encodable {
+                let city: String
+                let region: String
+                let country: String
+                let latitude: Double
+                let longitude: Double
+            }
+        }
+
+        let videoInsert = VideoInsert(
+            id: videoId.uuidString,
+            user_id: userId.uuidString,
+            video_url: publicURL.absoluteString,
+            location: VideoInsert.LocationData(
+                city: location.city,
+                region: location.region,
+                country: location.country,
+                latitude: location.latitude,
+                longitude: location.longitude
+            ),
+            likes_count: 0,
+            comments_count: 0,
+            created_at: ISO8601DateFormatter().string(from: Date())
+        )
 
         let video: Video = try await supabase.client
             .from("videos")
-            .insert(videoData)
+            .insert(videoInsert)
             .select()
             .single()
             .execute()
