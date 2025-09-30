@@ -8,10 +8,11 @@
 import Foundation
 import Combine
 import MapKit
+import SwiftUI
 
 
 class MapViewModel: ObservableObject {
-    @Published var cameraPosition: MapKit.MapCameraPosition = .automatic
+    @Published var cameraPosition: MapCameraPosition = .automatic
     @Published var cityAnnotations: [CityAnnotation] = []
 
     private let videoService = VideoService()
