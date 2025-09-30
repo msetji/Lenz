@@ -6,6 +6,17 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		57FC8A2F2E8C2B6900A696C5 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 57FC8A2E2E8C2B6900A696C5 /* Auth */; };
+		57FC8A312E8C2B6900A696C5 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 57FC8A302E8C2B6900A696C5 /* Functions */; };
+		57FC8A332E8C2B6900A696C5 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 57FC8A322E8C2B6900A696C5 /* PostgREST */; };
+		57FC8A352E8C2B6900A696C5 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 57FC8A342E8C2B6900A696C5 /* Realtime */; };
+		57FC8A372E8C2B6900A696C5 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 57FC8A362E8C2B6900A696C5 /* Storage */; };
+		57FC8A392E8C2B6900A696C5 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 57FC8A382E8C2B6900A696C5 /* Supabase */; };
+		57FC8A3C2E8C2B8B00A696C5 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 57FC8A3B2E8C2B8B00A696C5 /* GoogleSignIn */; };
+		57FC8A3E2E8C2B8B00A696C5 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 57FC8A3D2E8C2B8B00A696C5 /* GoogleSignInSwift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		57B359682E8C293700C7716C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,9 +40,22 @@
 		57B359712E8C293700C7716C /* LenzUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LenzUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		57FC8A402E8C2E1300A696C5 /* Exceptions for "Lenz" folder in "Lenz" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 57B359592E8C293500C7716C /* Lenz */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		57B3595C2E8C293500C7716C /* Lenz */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				57FC8A402E8C2E1300A696C5 /* Exceptions for "Lenz" folder in "Lenz" target */,
+			);
 			path = Lenz;
 			sourceTree = "<group>";
 		};
@@ -52,6 +76,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57FC8A332E8C2B6900A696C5 /* PostgREST in Frameworks */,
+				57FC8A312E8C2B6900A696C5 /* Functions in Frameworks */,
+				57FC8A392E8C2B6900A696C5 /* Supabase in Frameworks */,
+				57FC8A3E2E8C2B8B00A696C5 /* GoogleSignInSwift in Frameworks */,
+				57FC8A2F2E8C2B6900A696C5 /* Auth in Frameworks */,
+				57FC8A372E8C2B6900A696C5 /* Storage in Frameworks */,
+				57FC8A352E8C2B6900A696C5 /* Realtime in Frameworks */,
+				57FC8A3C2E8C2B8B00A696C5 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +144,14 @@
 			);
 			name = Lenz;
 			packageProductDependencies = (
+				57FC8A2E2E8C2B6900A696C5 /* Auth */,
+				57FC8A302E8C2B6900A696C5 /* Functions */,
+				57FC8A322E8C2B6900A696C5 /* PostgREST */,
+				57FC8A342E8C2B6900A696C5 /* Realtime */,
+				57FC8A362E8C2B6900A696C5 /* Storage */,
+				57FC8A382E8C2B6900A696C5 /* Supabase */,
+				57FC8A3B2E8C2B8B00A696C5 /* GoogleSignIn */,
+				57FC8A3D2E8C2B8B00A696C5 /* GoogleSignInSwift */,
 			);
 			productName = Lenz;
 			productReference = 57B3595A2E8C293500C7716C /* Lenz.app */;
@@ -195,6 +235,10 @@
 			);
 			mainGroup = 57B359512E8C293500C7716C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				57FC8A2D2E8C2B6900A696C5 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				57FC8A3A2E8C2B8B00A696C5 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 57B3595B2E8C293500C7716C /* Products */;
 			projectDirPath = "";
@@ -397,6 +441,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Lenz/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Lenz needs camera access to record videos.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Lenz uses your city to rank and display nearby videos.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Lenz needs access to save uploaded videos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +476,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Lenz/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Lenz needs camera access to record videos.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Lenz uses your city to rank and display nearby videos.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Lenz needs access to save uploaded videos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -570,6 +622,68 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		57FC8A2D2E8C2B6900A696C5 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase-community/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+		57FC8A3A2E8C2B8B00A696C5 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		57FC8A2E2E8C2B6900A696C5 /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57FC8A2D2E8C2B6900A696C5 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		57FC8A302E8C2B6900A696C5 /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57FC8A2D2E8C2B6900A696C5 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		57FC8A322E8C2B6900A696C5 /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57FC8A2D2E8C2B6900A696C5 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		57FC8A342E8C2B6900A696C5 /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57FC8A2D2E8C2B6900A696C5 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+		57FC8A362E8C2B6900A696C5 /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57FC8A2D2E8C2B6900A696C5 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Storage;
+		};
+		57FC8A382E8C2B6900A696C5 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57FC8A2D2E8C2B6900A696C5 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		57FC8A3B2E8C2B8B00A696C5 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57FC8A3A2E8C2B8B00A696C5 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		57FC8A3D2E8C2B8B00A696C5 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57FC8A3A2E8C2B8B00A696C5 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 57B359522E8C293500C7716C /* Project object */;
 }

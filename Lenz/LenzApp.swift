@@ -9,9 +9,23 @@ import SwiftUI
 
 @main
 struct LenzApp: App {
+    @StateObject private var authService = AuthService()
+    @StateObject private var locationService = LocationService()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+                if authService.isAuthenticated {
+                    MainTabView()
+                } else {
+                    AuthenticationView()
+                }
+            }
+            .environmentObject(authService)
+            .environmentObject(locationService)
+            .onAppear {
+                locationService.requestLocationPermission()
+            }
         }
     }
 }
