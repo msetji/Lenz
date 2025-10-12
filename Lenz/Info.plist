@@ -11,7 +11,7 @@
 			<string>supabase</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.msetji.Lenz</string>
+				<string>com.msetji.lenz</string>
 			</array>
 		</dict>
 	</array>

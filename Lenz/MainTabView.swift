@@ -11,6 +11,7 @@ struct MainTabView: View {
     @EnvironmentObject var authService: AuthService
     @State private var selectedTab = 0
     @State private var showUpload = false
+    @State private var profileRefreshTrigger = UUID()
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -39,17 +40,43 @@ struct MainTabView: View {
                 .tag(3)
 
             if let userId = authService.currentUser?.id {
-                ProfileView(userId: userId)
+                ProfileView(userId: userId, refreshTrigger: profileRefreshTrigger)
                     .tabItem {
                         Label("Profile", systemImage: "person.fill")
                     }
                     .tag(4)
             } else {
-                Text("Profile")
-                    .tabItem {
-                        Label("Profile", systemImage: "person.fill")
+                // Fallback profile view when user data is missing
+                VStack(spacing: 20) {
+                    Image(systemName: "person.crop.circle.badge.exclamationmark")
+                        .font(.system(size: 60))
+                        .foregroundColor(.gray)
+
+                    Text("Profile Not Loaded")
+                        .font(.headline)
+
+                    Text("Unable to load user data")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+
+                    Button {
+                        Task {
+                            try? await authService.signOut()
+                        }
+                    } label: {
+                        Text("Sign Out")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
-                    .tag(4)
+                    .padding(.horizontal, 40)
+                }
+                .tabItem {
+                    Label("Profile", systemImage: "person.fill")
+                }
+                .tag(4)
             }
         }
         .onChange(of: selectedTab) { oldValue, newValue in
@@ -58,8 +85,11 @@ struct MainTabView: View {
                 selectedTab = oldValue
             }
         }
-        .sheet(isPresented: $showUpload) {
-            UploadView()
+        .sheet(isPresented: $showUpload, onDismiss: {
+            // Refresh profile after upload sheet closes
+            profileRefreshTrigger = UUID()
+        }) {
+            UploadViewNew()
         }
     }
 }

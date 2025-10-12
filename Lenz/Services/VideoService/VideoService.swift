@@ -25,8 +25,8 @@ class VideoService: ObservableObject {
         let uploadResponse = try await supabase.client.storage
             .from("videos")
             .upload(
-                path: fileName,
-                file: data,
+                fileName,
+                data: data,
                 options: FileOptions(contentType: "video/mp4")
             )
 

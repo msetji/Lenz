@@ -24,7 +24,8 @@ class VideoPlayerViewModel: ObservableObject {
         self.video = video
         self.likesCount = video.likesCount
 
-        if let url = URL(string: video.videoURL) {
+        // Only create player for videos, not photos
+        if video.mediaType == .video, let videoURL = video.videoURL, let url = URL(string: videoURL) {
             self.player = AVPlayer(url: url)
             self.player?.actionAtItemEnd = .none
 

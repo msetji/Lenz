@@ -80,13 +80,13 @@ struct UserRow: View {
                 .fill(Color.gray.opacity(0.3))
                 .frame(width: 50, height: 50)
                 .overlay(
-                    Text(user.username.prefix(1).uppercased())
+                    Text(user.displayName.prefix(1).uppercased())
                         .font(.title2)
                         .fontWeight(.bold)
                 )
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(user.username)
+                Text(user.displayName)
                     .font(.headline)
 
                 Text(user.email)

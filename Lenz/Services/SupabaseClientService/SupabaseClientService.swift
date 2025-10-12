@@ -26,7 +26,12 @@ final class SupabaseClientService: ObservableObject {
 
         self.client = SupabaseClient(
             supabaseURL: url,
-            supabaseKey: supabaseKey
+            supabaseKey: supabaseKey,
+            options: SupabaseClientOptions(
+                auth: SupabaseClientOptions.AuthOptions(
+                    redirectToURL: URL(string: "com.msetji.lenz://auth-callback")
+                )
+            )
         )
     }
 }

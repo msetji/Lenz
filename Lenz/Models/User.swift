@@ -10,9 +10,17 @@ import Foundation
 struct User: Codable, Identifiable {
     let id: UUID
     let email: String
-    let username: String
+    let username: String?
     let avatarURL: String?
     let createdAt: Date
+
+    var isProfileComplete: Bool {
+        username != nil && !username!.isEmpty
+    }
+
+    var displayName: String {
+        username ?? email.components(separatedBy: "@").first ?? "User"
+    }
 
     enum CodingKeys: String, CodingKey {
         case id

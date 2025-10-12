@@ -130,14 +130,55 @@ struct CityVideosSheet: View {
 
 struct VideoThumbnail: View {
     let video: Video
+    @State private var showDetail = false
 
     var body: some View {
-        Rectangle()
-            .fill(Color.gray.opacity(0.3))
-            .aspectRatio(9/16, contentMode: .fit)
-            .overlay(
-                Image(systemName: "play.fill")
-                    .foregroundColor(.white)
-            )
+        Button {
+            showDetail = true
+        } label: {
+            ZStack {
+                // Thumbnail image
+                if let thumbnailURL = video.thumbnailURL ?? video.mediaUrls?.first,
+                   let url = URL(string: thumbnailURL) {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } placeholder: {
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.3))
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .aspectRatio(9/16, contentMode: .fill)
+                    .clipped()
+                } else {
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.3))
+                        .aspectRatio(9/16, contentMode: .fit)
+                }
+
+                // Media type indicator
+                if video.mediaType == .video {
+                    Image(systemName: "play.fill")
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .shadow(radius: 5)
+                } else if let count = video.mediaUrls?.count, count > 1 {
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Image(systemName: "square.stack.fill")
+                                .foregroundColor(.white)
+                                .shadow(radius: 5)
+                                .padding(8)
+                        }
+                        Spacer()
+                    }
+                }
+            }
+        }
+        .sheet(isPresented: $showDetail) {
+            PostDetailView(video: video)
+        }
     }
 }

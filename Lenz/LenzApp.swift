@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Supabase
+import Auth
 
 @main
 struct LenzApp: App {
@@ -16,7 +18,11 @@ struct LenzApp: App {
         WindowGroup {
             Group {
                 if authService.isAuthenticated {
-                    MainTabView()
+                    if let user = authService.currentUser, !user.isProfileComplete {
+                        ProfileSetupView()
+                    } else {
+                        MainTabView()
+                    }
                 } else {
                     AuthenticationView()
                 }
@@ -25,6 +31,15 @@ struct LenzApp: App {
             .environmentObject(locationService)
             .onAppear {
                 locationService.requestLocationPermission()
+            }
+            .onOpenURL { url in
+                Task {
+                    do {
+                        try await SupabaseClientService.shared.client.auth.session(from: url)
+                    } catch {
+                        print("Failed to handle auth callback: \(error)")
+                    }
+                }
             }
         }
     }

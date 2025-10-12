@@ -9,29 +9,51 @@ import SwiftUI
 
 struct ProfileView: View {
     let userId: UUID
+    let refreshTrigger: UUID?
     @StateObject private var viewModel: ProfileViewModel
     @EnvironmentObject var authService: AuthService
+    @State private var showingSettings = false
 
-    init(userId: UUID) {
+    init(userId: UUID, refreshTrigger: UUID? = nil) {
         self.userId = userId
+        self.refreshTrigger = refreshTrigger
         _viewModel = StateObject(wrappedValue: ProfileViewModel(userId: userId))
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24) {
+        NavigationView {
+            ScrollView {
+                VStack(spacing: 24) {
                 VStack(spacing: 16) {
-                    Circle()
-                        .fill(Color.gray.opacity(0.3))
+                    // Profile Picture
+                    if let avatarURL = viewModel.user?.avatarURL,
+                       let url = URL(string: avatarURL) {
+                        AsyncImage(url: url) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                        } placeholder: {
+                            Circle()
+                                .fill(Color.gray.opacity(0.3))
+                                .overlay(
+                                    ProgressView()
+                                )
+                        }
                         .frame(width: 100, height: 100)
-                        .overlay(
-                            Text(viewModel.user?.username.prefix(1).uppercased() ?? "?")
-                                .font(.system(size: 40))
-                                .fontWeight(.bold)
-                        )
+                        .clipShape(Circle())
+                    } else {
+                        Circle()
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(width: 100, height: 100)
+                            .overlay(
+                                Text(viewModel.user?.displayName.prefix(1).uppercased() ?? "?")
+                                    .font(.system(size: 40))
+                                    .fontWeight(.bold)
+                            )
+                    }
 
                     VStack(spacing: 4) {
-                        Text(viewModel.user?.username ?? "Loading...")
+                        Text(viewModel.user?.displayName ?? "Loading...")
                             .font(.title2)
                             .fontWeight(.bold)
 
@@ -60,27 +82,20 @@ struct ProfileView: View {
                         }
                     }
 
-                    if userId == authService.currentUser?.id {
-                        Button {
-                            Task {
-                                try? await authService.signOut()
-                            }
-                        } label: {
-                            Text("Sign Out")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.red)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
-                        .padding(.horizontal)
-                    }
                 }
                 .padding()
 
                 Divider()
 
-                if viewModel.videos.isEmpty {
+                if viewModel.isLoading && viewModel.videos.isEmpty {
+                    VStack(spacing: 16) {
+                        ProgressView()
+                        Text("Loading posts...")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.top, 40)
+                } else if viewModel.videos.isEmpty {
                     VStack(spacing: 16) {
                         Image(systemName: "video.slash")
                             .font(.system(size: 60))
@@ -101,11 +116,30 @@ struct ProfileView: View {
                     }
                 }
             }
-        }
-        .navigationTitle("Profile")
-        .navigationBarTitleDisplayMode(.inline)
-        .task {
-            await viewModel.loadProfile()
+            }
+            .navigationTitle("Profile")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                if userId == authService.currentUser?.id {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            showingSettings = true
+                        } label: {
+                            Image(systemName: "ellipsis.circle")
+                                .font(.title3)
+                        }
+                    }
+                }
+            }
+            .sheet(isPresented: $showingSettings) {
+                ProfileSettingsView(user: viewModel.user)
+            }
+            .task(id: refreshTrigger) {
+                await viewModel.loadProfile()
+            }
+            .refreshable {
+                await viewModel.loadProfile()
+            }
         }
     }
 }

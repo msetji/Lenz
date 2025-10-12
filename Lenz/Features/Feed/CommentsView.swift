@@ -86,7 +86,7 @@ struct CommentRow: View {
                 .fill(Color.gray.opacity(0.3))
                 .frame(width: 36, height: 36)
                 .overlay(
-                    Text(comment.user?.username.prefix(1).uppercased() ?? "?")
+                    Text(comment.user?.displayName.prefix(1).uppercased() ?? "?")
                         .font(.headline)
                 )
 
